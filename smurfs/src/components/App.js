@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { getAPI } from "../actions";
 import "./App.css";
 /*
  to wire this component up you're going to need a few things.
@@ -18,16 +19,42 @@ class App extends Component {
     };
   }
 
+  componentDidMount() {
+    this.props.getAPI();
+  }
+
   render() {
     return (
       <div className="App">
-        <h1>SMURFS! 2.0 W/ Redux</h1>
-        <div>Welcome to your Redux version of Smurfs!</div>
-        <div>Start inside of your `src/index.js` file!</div>
-        <div>Have fun!</div>
+        <form onSubmit={this.addSmurf}>
+          <input
+            onChange={this.handleInputChange}
+            placeholder="name"
+            value={this.state.name}
+            name="name"
+          />
+          <input
+            onChange={this.handleInputChange}
+            placeholder="age"
+            value={this.state.age}
+            name="age"
+          />
+          <input
+            onChange={this.handleInputChange}
+            placeholder="height"
+            value={this.state.height}
+            name="height"
+          />
+          <button type="submit">Add to the village</button>
+        </form>
       </div>
     );
   }
 }
 
-export default App;
+const mapStateToProps = state => ({});
+
+export default connect(
+  mapStateToProps,
+  { getAPI }
+)(App);
