@@ -1,9 +1,9 @@
 import axios from "axios";
 
-export const GET_SMURF = "GET_SMURF";
-export const SMURF_SUCCESS = "SMURF_SUCCESS";
-export const ADD_SMURF = "ADD_SMURF";
-export const SMURF_FAILURE = "SMURF_FAILURE";
+export const GET_SMURFS = "GET_SMURFS";
+export const SMURFS_SUCCESS = "SMURFS_SUCCESS";
+export const SMURFS_FAILURE = "SMURFS_FAILURE";
+export const ADD_SMURFS = "ADD_SMURFS";
 
 /* 
   Action Types Go Here!
@@ -21,20 +21,20 @@ export const SMURF_FAILURE = "SMURF_FAILURE";
    D - deleteSmurf
 */
 
-export const getAPI = () => dispatch => {
-  dispatch({ type: GET_SMURF });
-
+export const fetchData = () => dispatch => {
+  dispatch({ type: GET_SMURFS });
   axios
     .get("http://localhost:3333/smurfs")
     .then(res => {
+      console.log(res, "res");
       dispatch({
-        type: SMURF_SUCCESS,
+        type: SMURFS_SUCCESS,
         payload: res.data
       });
     })
     .catch(err => {
       dispatch({
-        type: SMURF_FAILURE,
+        type: SMURFS_FAILURE,
         payload: err
       });
     });

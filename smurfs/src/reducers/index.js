@@ -1,11 +1,16 @@
-import { GET_SMURF, SMURF_SUCCESS, ADD_SMURF } from "../actions";
+import {
+  GET_SMURFS,
+  SMURFS_SUCCESS,
+  SMURFS_FAILURE,
+  ADD_SMURFS
+} from "../actions";
 
 /*
   Be sure to import in all of the action types from `../actions`
 */
 
 //  Your initial/default state for this project could *Although does not have to* look a lot like this
-const initialState = {
+export const initialState = {
   smurfs: [],
   fetchingSmurfs: false,
   addingSmurf: false,
@@ -22,18 +27,27 @@ const initialState = {
 
 export const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case GET_SMURF:
+    case GET_SMURFS:
       return {
         ...state,
+        error: "",
         fetchingSmurfs: true
       };
-    case SMURF_SUCCESS:
-      console.log(action.payload);
+    case SMURFS_SUCCESS:
+      console.log(action.payload, "data");
       return {
         ...state,
         smurfs: [...state.smurfs, ...action.payload],
         fetchingSmurfs: false
       };
+    case SMURFS_FAILURE:
+      return {
+        ...state,
+        fetchingSmurfs: false,
+        error: action.payload
+      };
+    default:
+      return state;
   }
 };
 

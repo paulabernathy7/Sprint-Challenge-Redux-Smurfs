@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { getAPI } from "../actions";
+import { SmurfList } from "../components";
+import { fetchData } from "../actions";
 import "./App.css";
 /*
  to wire this component up you're going to need a few things.
@@ -20,10 +21,14 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.props.getAPI();
+    this.props.fetchData();
   }
 
   render() {
+    if (this.props.fetchingSmurfs) {
+      return <p>fetching smurfs</p>;
+    }
+
     return (
       <div className="App">
         <form onSubmit={this.addSmurf}>
@@ -47,14 +52,21 @@ class App extends Component {
           />
           <button type="submit">Add to the village</button>
         </form>
+
+        <div>
+          <SmurfList smurfs={this.props.smurfs} />
+        </div>
       </div>
     );
   }
 }
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({
+  smurfs: state.smurfs,
+  fetchingSmurfs: state.fetchingSmurfs
+});
 
 export default connect(
   mapStateToProps,
-  { getAPI }
+  { fetchData }
 )(App);
