@@ -3,7 +3,10 @@ import axios from "axios";
 export const GET_SMURFS = "GET_SMURFS";
 export const SMURFS_SUCCESS = "SMURFS_SUCCESS";
 export const SMURFS_FAILURE = "SMURFS_FAILURE";
+
 export const ADD_SMURFS = "ADD_SMURFS";
+export const ADD_SMURFS_SUCCESS = "ADD_SMURFS_SUCCESS";
+export const ADD_SMURFS_FAILURE = "ADD_SMURFS_FAILURE";
 
 /* 
   Action Types Go Here!
@@ -37,5 +40,17 @@ export const fetchData = () => dispatch => {
         type: SMURFS_FAILURE,
         payload: err
       });
+    });
+};
+
+export const createSmurf = smurf => dispatch => {
+  dispatch({ type: ADD_SMURFS });
+  axios
+    .post("http://localhost:3333/smurfs", smurf)
+    .then(res => {
+      dispatch({ type: ADD_SMURFS_SUCCESS, payload: res.data });
+    })
+    .catch(err => {
+      dispatch({ type: ADD_SMURFS_FAILURE, payload: err });
     });
 };
