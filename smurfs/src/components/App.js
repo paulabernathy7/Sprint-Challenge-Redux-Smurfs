@@ -76,8 +76,7 @@ class App extends Component {
 const mapStateToProps = state => ({
   smurfs: state.smurfs,
   fetchingSmurfs: state.fetchingSmurfs,
-  addingSmurfs: state.addingSmurfs,
-  createSmurf: state.createSmurf
+  addingSmurfs: state.addingSmurfs
 });
 
 export default connect(
